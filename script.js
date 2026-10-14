@@ -16,10 +16,15 @@ btn.addEventListener("click",async () => {
    try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${NameId}`);
     const data = await response.json();
-    const name = data.name;
+    const speciesResponse = await fetch(data.species.url);
+    const speciesData = await speciesResponse.json();
+    const name = speciesData.names.find(item => item.language.name === "ja-Hrkt")?.name
+        ?? speciesData.names.find(item => item.language.name === "ja")?.name
+        ?? data.name;
     const imageUrl = data.sprites.front_default;
     const weight = data.weight / 10;
     const height = data.height / 10;
+
    document.getElementById("poke_name").innerHTML = name;
    document.getElementById("poke_img").innerHTML = `<img src="${imageUrl}" alt="${name}">`;
 
