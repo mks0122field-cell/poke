@@ -32,6 +32,14 @@ body {
     background-position: center, center, center;
     background-attachment: fixed, fixed, fixed;
 }
+.sunny{
+    background-image:url("Gemini_Generated_Image_4jmxzv4jmxzv4jmx.jpg");}
+.cloudy{
+    background-image:url("Gemini_Generated_Image_eneazweneazwenea.jpg");}
+.rain{
+    background-image:url("Gemini_Generated_Image_rvo4mgrvo4mgrvo4.jpg");}
+.thunder{
+    background-image:url("Gemini_Generated_Image_5c8x1q5c8x1q5c8x.jpg");}
 
 .search_area {
     display: flex;

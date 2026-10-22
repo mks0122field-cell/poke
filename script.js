@@ -29,7 +29,7 @@ btn.addEventListener("click", async () => {
         const speciesData = await speciesResponse.json();
         const jpName = speciesData.names.find(nameObj => nameObj.language.name === "ja");//ポケモンの日本語名を取得
         const JPN_NAME = jpName ? jpName.name : data.name;
-        
+
 
         const abilityNames = await Promise.all(data.abilities.map(async (ability) => {
             const abilityResponse = await fetch(ability.ability.url);
@@ -37,7 +37,7 @@ btn.addEventListener("click", async () => {
             const abilityName = abilityData.names.find(nameObj => nameObj.language.name === "ja");
             return abilityName ? abilityName.name : ability.ability.name;
 
-         
+
         }));
         const typeNames = await Promise.all(data.types.map(async (type) => {
             const typeResponse = await fetch(type.type.url);
@@ -60,4 +60,9 @@ btn.addEventListener("click", async () => {
         document.getElementById("poke_img").innerHTML = "ポケモンがいません";
     }
 });
-
+texttype.addEventListener("keydown", (event) => {
+    // エンターキーが押され、かつ日本語の変換中ではない場合
+    if (event.key === "Enter" && !event.isComposing) {
+        btn.click(); // 検索ボタンをクリックしたのと同じ処理を実行
+    }
+});
