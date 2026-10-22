@@ -14,7 +14,12 @@ btn.addEventListener("click", async () => {
     document.getElementById("poke_abilities").textContent = "";
 
     try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${NameId}`);
+        const INPUTNAME = texttype.value.normalize("NFKC");
+        const foundpokemon = pokelist.find(pokemon => pokemon.ja === INPUTNAME);
+        const foundpokemon_en = foundpokemon ? foundpokemon.en.toLowerCase() : INPUTNAME.toLowerCase();
+
+
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${foundpokemon_en}`);
         const data = await response.json();
         const name = data.name;
         const imageUrl = data.sprites.front_default;
@@ -24,6 +29,7 @@ btn.addEventListener("click", async () => {
         const speciesData = await speciesResponse.json();
         const jpName = speciesData.names.find(nameObj => nameObj.language.name === "ja");//ポケモンの日本語名を取得
         const JPN_NAME = jpName ? jpName.name : data.name;
+        
 
         const abilityNames = await Promise.all(data.abilities.map(async (ability) => {
             const abilityResponse = await fetch(ability.ability.url);
